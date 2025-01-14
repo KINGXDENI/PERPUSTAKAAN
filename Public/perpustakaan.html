@@ -85,32 +85,54 @@
       </div>
     </section>
 
-    <section id="member-list-section">
-      <div class="bg-white shadow-md rounded-lg p-6">
-        <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
-        <div class="overflow-x-auto">
-          <table id="member-table"
-            class="table-auto w-full border-collapse border border-gray-200">
-            <thead>
-              <tr class="bg-gray-100 text-gray-700">
-                <th class="border border-gray-300 px-4 py-2">No. Anggota</th>
-                <th class="border border-gray-300 px-4 py-2">Nama</th>
-                <th class="border border-gray-300 px-4 py-2">TTL</th>
-                <th class="border border-gray-300 px-4 py-2">Alamat</th>
-                <th class="border border-gray-300 px-4 py-2">Jenis Kelamin</th>
-                <th class="border border-gray-300 px-4 py-2">Email</th>
-                <th class="border border-gray-300 px-4 py-2">No. Telepon</th>
-                <th class="border border-gray-300 px-4 py-2">Masa Berlaku</th>
-                <th class="border border-gray-300 px-4 py-2">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="member-table-body">
-              <!-- Member akan ditambahkan di sini -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+
+<section id="member-list-section">
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
+    <div class="overflow-x-auto">
+      <table id="member-table"
+        class="table-auto w-full border-collapse border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700">
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">No. Anggota</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">Nama</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">TTL</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">Alamat</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">Jenis Kelamin</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">Email</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">No. Telepon</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">Masa Berlaku</span>
+            </th>
+            <th class="border border-gray-300 px-4 py-2">
+              <span class="flex items-center">Aksi</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="member-table-body">
+          <!-- Member akan ditambahkan di sini -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
   </main>
 
   <!-- Axios for making HTTP requests -->
@@ -119,8 +141,12 @@
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
   <script>
+    const table = new simpleDatatables.DataTable("#member-table", {
+    searchable: true,  // Mengaktifkan fitur pencarian
+    fixedHeight: true,
+  });
     const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
 
     document.addEventListener("DOMContentLoaded", () => {
