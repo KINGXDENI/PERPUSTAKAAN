@@ -142,118 +142,131 @@
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
-<script>
-    const table = new simpleDatatables.DataTable("#member-table", {
-    searchable: true,  // Mengaktifkan fitur pencarian
-    fixedHeight: true,
-  });
-    const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
+  <script>
+  const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("member-form");
-      const memberTableBody = document.getElementById("member-table-body");
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("member-form");
+    const memberTableBody = document.getElementById("member-table-body");
 
-      // Fetch data member saat halaman dimuat
-      fetchMembers();
+    // Inisialisasi DataTables
+    const dataTable = new DataTable("#member-table", {
+      searchable: true,  // Mengaktifkan fitur pencarian
+      fixedHeight: true,
+    });
 
-      // Tambahkan member baru
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    // Fetch data member saat halaman dimuat
+    fetchMembers();
 
-        const memberData = {
-          id: document.getElementById("id").value,
-          name: document.getElementById("name").value,
-          birthdate: document.getElementById("birthdate").value,
-          address: document.getElementById("address").value,
-          gender: document.getElementById("gender").value,
-          email: document.getElementById("email").value,
-          phone: document.getElementById("phone").value,
-          validity: document.getElementById("validity").value,
-        };
+    // Tambahkan member baru
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-        try {
-          await axios.post(apiUrl, memberData);
-          fetchMembers();
-          form.reset();
-          Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: 'Member berhasil ditambahkan.',
-          });
-        } catch (error) {
-          console.error("Gagal menambahkan member:", error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: 'Terjadi kesalahan saat menambahkan member.',
-          });
-        }
-      });
+      const memberData = {
+        id: document.getElementById("id").value,
+        name: document.getElementById("name").value,
+        birthdate: document.getElementById("birthdate").value,
+        address: document.getElementById("address").value,
+        gender: document.getElementById("gender").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        validity: document.getElementById("validity").value,
+      };
 
-      // Ambil data member dari API
-      async function fetchMembers() {
-        try {
-          const response = await axios.get(apiUrl);
-          const members = response.data;
-          displayMembers(members);
-        } catch (error) {
-          console.error("Gagal memuat data member:", error);
-        }
-      }
-
-      // Tampilkan data member di tabel
-      function displayMembers(members) {
-        memberTableBody.innerHTML = "";
-        members.forEach(member => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td class="border border-gray-300 px-4 py-2">${member.id}</td>
-            <td class="border border-gray-300 px-4 py-2">${member.name}</td>
-            <td class="border border-gray-300 px-4 py-2">${new Date(member.birthdate).toLocaleDateString('id-ID')}</td>
-            <td class="border border-gray-300 px-4 py-2">${member.address}</td>
-            <td class="border border-gray-300 px-4 py-2">${member.gender}</td>
-            <td class="border border-gray-300 px-4 py-2">${member.email}</td>
-            <td class="border border-gray-300 px-4 py-2">${member.phone}</td>
-            <td class="border border-gray-300 px-4 py-2">${new Date(member.validity).toLocaleDateString('id-ID')}</td>
-            <td class="border border-gray-300 px-4 py-2">
-              <button class="edit-btn text-blue-600 hover:text-blue-800">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="delete-btn text-red-600 hover:text-red-800">
-                <i class="fas fa-trash"></i>
-              </button>
-            </td>
-          `;
-          row.dataset.memberId = member.id;
-
-          const deleteButton = row.querySelector(".delete-btn");
-          deleteButton.addEventListener("click", () => deleteMember(member.id));
-
-          memberTableBody.appendChild(row);
+      try {
+        await axios.post(apiUrl, memberData);
+        fetchMembers();
+        form.reset();
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: 'Member berhasil ditambahkan.',
+        });
+      } catch (error) {
+        console.error("Gagal menambahkan member:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: 'Terjadi kesalahan saat menambahkan member.',
         });
       }
-
-      // Hapus member
-      async function deleteMember(memberId) {
-        try {
-          await axios.delete(`${apiUrl}/${memberId}`);
-          fetchMembers();
-          Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: 'Member berhasil dihapus.',
-          });
-        } catch (error) {
-          console.error("Gagal menghapus member:", error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-             text: 'Terjadi kesalahan saat menghapus member.',
-          });
-        }
-      }
     });
-            </script>
+
+    // Ambil data member dari API
+    async function fetchMembers() {
+      try {
+        const response = await axios.get(apiUrl);
+        const members = response.data;
+
+        // Format data untuk DataTable
+        const customData = {
+          headings: [
+            "ID", "Name", "Birthdate", "Address", "Gender", "Email", "Phone", "Validity", "Actions"
+          ],
+          data: members.map(member => [
+            member.id,
+            member.name,
+            new Date(member.birthdate).toLocaleDateString('id-ID'),
+            member.address,
+            member.gender,
+            member.email,
+            member.phone,
+            new Date(member.validity).toLocaleDateString('id-ID'),
+            `<button class="edit-btn text-blue-600 hover:text-blue-800">
+               <i class="fas fa-edit"></i>
+             </button>
+             <button class="delete-btn text-red-600 hover:text-red-800">
+               <i class="fas fa-trash"></i>
+             </button>`
+          ])
+        };
+
+        // Update DataTable dengan data baru
+        dataTable.update(customData);
+        attachDeleteEvents(); // Untuk menambahkan event delete ke tombol
+      } catch (error) {
+        console.error("Gagal memuat data member:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: 'Terjadi kesalahan saat memuat data member.',
+        });
+      }
+    }
+
+    // Fungsi untuk menangani event delete
+    function attachDeleteEvents() {
+      const deleteButtons = document.querySelectorAll(".delete-btn");
+      deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener("click", (e) => {
+          const memberId = e.target.closest("tr").dataset.memberId;
+          deleteMember(memberId);
+        });
+      });
+    }
+
+    // Hapus member
+    async function deleteMember(memberId) {
+      try {
+        await axios.delete(`${apiUrl}/${memberId}`);
+        fetchMembers();
+        Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: 'Member berhasil dihapus.',
+        });
+      } catch (error) {
+        console.error("Gagal menghapus member:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: 'Terjadi kesalahan saat menghapus member.',
+        });
+      }
+    }
+  });
+</script>
+
 
 </body>
 
