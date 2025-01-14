@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Member Perpustakaan</title>
-<script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS (for utility classes) -->
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <!-- Flowbite CSS (for layout and components) -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.css" rel="stylesheet">
-  <!-- Tambahkan Font Awesome -->
+  <!-- Font Awesome (for icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- SweetAlert2 (for nicer alerts) -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
-<body>
-  
-            
+
+<body class="bg-gray-100">
+
+  <header class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto text-center">
+      <h1 class="text-3xl font-semibold">Sistem Member Perpustakaan Daerah</h1>
+    </div>
+  </header>
+
   <main class="container mx-auto my-8">
     <section id="form-section" class="mb-8">
       <div class="bg-white shadow-md rounded-lg p-6">
@@ -56,11 +66,13 @@
             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Nomor Telepon:</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
-                  <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"/>
+                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor" viewBox="0 0 19 18">
+                  <path
+                    d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
                 </svg>
               </div>
-              <input type="tel" id="phone" class="input pl-10"  placeholder="08xx" required>
+              <input type="tel" id="phone" class="input pl-10" placeholder="08xx" required>
             </div>
           </div>
 
@@ -78,7 +90,8 @@
       <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
         <div class="overflow-x-auto">
-          <table id="member-table" class="table-auto w-full border-collapse border border-gray-200">
+          <table id="member-table"
+            class="table-auto w-full border-collapse border border-gray-200">
             <thead>
               <tr class="bg-gray-100 text-gray-700">
                 <th class="border border-gray-300 px-4 py-2">No. Anggota</th>
@@ -99,118 +112,120 @@
         </div>
       </div>
     </section>
-  </main> 
+  </main>
 
+  <!-- Axios for making HTTP requests -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.js"></script>
+  <!-- Flowbite JS for layout and components -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.js"></script>
   <script>
     const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("member-form");
-  const memberTableBody = document.getElementById("member-table-body");
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("member-form");
+      const memberTableBody = document.getElementById("member-table-body");
 
-  // Fetch data member saat halaman dimuat
-  fetchMembers();
-
-  // Tambahkan member baru
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const memberData = {
-      id: document.getElementById("id").value,
-      name: document.getElementById("name").value,
-      birthdate: document.getElementById("birthdate").value,
-      address: document.getElementById("address").value,
-      gender: document.getElementById("gender").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      validity: document.getElementById("validity").value,
-    };
-
-    try {
-      await axios.post(apiUrl, memberData);
+      // Fetch data member saat halaman dimuat
       fetchMembers();
-      form.reset();
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: 'Member berhasil ditambahkan.',
+
+      // Tambahkan member baru
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const memberData = {
+          id: document.getElementById("id").value,
+          name: document.getElementById("name").value,
+          birthdate: document.getElementById("birthdate").value,
+          address: document.getElementById("address").value,
+          gender: document.getElementById("gender").value,
+          email: document.getElementById("email").value,
+          phone: document.getElementById("phone").value,
+          validity: document.getElementById("validity").value,
+        };
+
+        try {
+          await axios.post(apiUrl, memberData);
+          fetchMembers();
+          form.reset();
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: 'Member berhasil ditambahkan.',
+          });
+        } catch (error) {
+          console.error("Gagal menambahkan member:", error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: 'Terjadi kesalahan saat menambahkan member.',
+          });
+        }
       });
-    } catch (error) {
-      console.error("Gagal menambahkan member:", error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Gagal!',
-        text: 'Terjadi kesalahan saat menambahkan member.',
-      });
-    }
-  });
 
-  // Ambil data member dari API
-  async function fetchMembers() {
-    try {
-      const response = await axios.get(apiUrl);
-      const members = response.data;
-      displayMembers(members);
-    } catch (error) {
-      console.error("Gagal memuat data member:", error);
-    }
-  }
+      // Ambil data member dari API
+      async function fetchMembers() {
+        try {
+          const response = await axios.get(apiUrl);
+          const members = response.data;
+          displayMembers(members);
+        } catch (error) {
+          console.error("Gagal memuat data member:", error);
+        }
+      }
 
-  // Tampilkan data member di tabel
-  function displayMembers(members) {
-    memberTableBody.innerHTML = "";
-    members.forEach(member => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td class="border border-gray-300 px-4 py-2">${member.id}</td>
-        <td class="border border-gray-300 px-4 py-2">${member.name}</td>
-        <td class="border border-gray-300 px-4 py-2">${new Date(member.birthdate).toLocaleDateString('id-ID')}</td>
-        <td class="border border-gray-300 px-4 py-2">${member.address}</td>
-        <td class="border border-gray-300 px-4 py-2">${member.gender}</td>
-        <td class="border border-gray-300 px-4 py-2">${member.email}</td>
-        <td class="border border-gray-300 px-4 py-2">${member.phone}</td>
-        <td class="border border-gray-300 px-4 py-2">${new Date(member.validity).toLocaleDateString('id-ID')}</td>
-        <td class="border border-gray-300 px-4 py-2">
-          <button class="edit-btn text-blue-600 hover:text-blue-800">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="delete-btn text-red-600 hover:text-red-800">
-            <i class="fas fa-trash"></i>
-          </button>
-        </td>
-      `;
-      row.dataset.memberId = member.id;
+      // Tampilkan data member di tabel
+      function displayMembers(members) {
+        memberTableBody.innerHTML = "";
+        members.forEach(member => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td class="border border-gray-300 px-4 py-2">${member.id}</td>
+            <td class="border border-gray-300 px-4 py-2">${member.name}</td>
+            <td class="border border-gray-300 px-4 py-2">${new Date(member.birthdate).toLocaleDateString('id-ID')}</td>
+            <td class="border border-gray-300 px-4 py-2">${member.address}</td>
+            <td class="border border-gray-300 px-4 py-2">${member.gender}</td>
+            <td class="border border-gray-300 px-4 py-2">${member.email}</td>
+            <td class="border border-gray-300 px-4 py-2">${member.phone}</td>
+            <td class="border border-gray-300 px-4 py-2">${new Date(member.validity).toLocaleDateString('id-ID')}</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <button class="edit-btn text-blue-600 hover:text-blue-800">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-btn text-red-600 hover:text-red-800">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          `;
+          row.dataset.memberId = member.id;
 
-      const deleteButton = row.querySelector(".delete-btn");
-      deleteButton.addEventListener("click", () => deleteMember(member.id));
+          const deleteButton = row.querySelector(".delete-btn");
+          deleteButton.addEventListener("click", () => deleteMember(member.id));
 
-      memberTableBody.appendChild(row);
+          memberTableBody.appendChild(row);
+        });
+      }
+
+      // Hapus member
+      async function deleteMember(memberId) {
+        try {
+          await axios.delete(`${apiUrl}/${memberId}`);
+          fetchMembers();
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: 'Member berhasil dihapus.',
+          });
+        } catch (error) {
+          console.error("Gagal menghapus member:", error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: 'Terjadi kesalahan saat menghapus member.',
+          });
+        }
+      }
     });
-  }
-
-  // Hapus member
-  async function deleteMember(memberId) {
-    try {
-      await axios.delete(`${apiUrl}/${memberId}`);
-      fetchMembers();
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: 'Member berhasil dihapus.',
-      });
-    } catch (error) {
-      console.error("Gagal menghapus member:", error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Gagal!',
-        text: 'Terjadi kesalahan saat menghapus member.',
-      });
-    }
-  }
-});
-
   </script>
 </body>
+
 </html>
