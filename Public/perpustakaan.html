@@ -5,61 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Member Perpustakaan</title>
   <link rel="stylesheet" href="perpustakaan.css">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@1.6.5/dist/flowbite.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-  <header>
-    <h1>Sistem Member Perpustakaan Daerah</h1>
+<body class="bg-gray-100 text-gray-900">
+  <header class="bg-blue-600 p-4 text-white text-center">
+    <h1 class="text-2xl font-bold">Sistem Member Perpustakaan Daerah</h1>
   </header>
-  <main>
-    <section id="form-section">
-      <h2>Tambah Member Baru</h2>
-      <form id="member-form">
-        <label for="id">Nomor Anggota:</label>
-        <input type="text" id="id" required>
-
-        <label for="name">Nama:</label>
-        <input type="text" id="name" required>
-
-        <label for="birthdate">Tanggal Lahir:</label>
-        <input type="date" id="birthdate" required>
-
-        <label for="address">Alamat:</label>
-        <textarea id="address" required></textarea>
-
-        <label for="gender">Jenis Kelamin:</label>
-        <select id="gender" required>
-          <option value="">Pilih Jenis Kelamin</option>
-          <option value="Laki-Laki">Laki-Laki</option>
-          <option value="Perempuan">Perempuan</option>
-        </select>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-
-        <label for="phone">Nomor Telepon:</label>
-        <input type="tel" id="phone" required>
-
-        <label for="validity">Masa Berlaku:</label>
-        <input type="date" id="validity" required>
-
-        <button type="submit">Tambah Member</button>
+  <main class="max-w-4xl mx-auto p-6">
+    <section id="form-section" class="mb-6">
+      <h2 class="text-xl font-semibold mb-4">Tambah Member Baru</h2>
+      <form id="member-form" class="space-y-4 bg-white p-6 rounded shadow">
+        <div>
+          <label for="id" class="block font-medium">Nomor Anggota:</label>
+          <input type="text" id="id" class="form-input w-full" required>
+        </div>
+        <div>
+          <label for="name" class="block font-medium">Nama:</label>
+          <input type="text" id="name" class="form-input w-full" required>
+        </div>
+        <div>
+          <label for="birthdate" class="block font-medium">Tanggal Lahir:</label>
+          <input type="date" id="birthdate" class="form-input w-full" required>
+        </div>
+        <div>
+          <label for="address" class="block font-medium">Alamat:</label>
+          <textarea id="address" class="form-textarea w-full" required></textarea>
+        </div>
+        <div>
+          <label for="gender" class="block font-medium">Jenis Kelamin:</label>
+          <select id="gender" class="form-select w-full" required>
+            <option value="">Pilih Jenis Kelamin</option>
+            <option value="Laki-Laki">Laki-Laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+        <div>
+          <label for="email" class="block font-medium">Email:</label>
+          <input type="email" id="email" class="form-input w-full" required>
+        </div>
+        <div>
+          <label for="phone" class="block font-medium">Nomor Telepon:</label>
+          <input type="tel" id="phone" class="form-input w-full" required>
+        </div>
+        <div>
+          <label for="validity" class="block font-medium">Masa Berlaku:</label>
+          <input type="date" id="validity" class="form-input w-full" required>
+        </div>
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+          <i class="fas fa-plus"></i> Tambah Member
+        </button>
       </form>
     </section>
 
     <section id="member-list-section">
-      <h2>Daftar Member</h2>
-      <table id="member-table">
+      <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
+      <table class="w-full border-collapse bg-white shadow">
         <thead>
-          <tr>
-            <th>No. Anggota</th>
-            <th>Nama</th>
-            <th>TTL</th>
-            <th>Alamat</th>
-            <th>Jenis Kelamin</th>
-            <th>Email</th>
-            <th>No. Telepon</th>
-            <th>Masa Berlaku</th>
-            <th>Aksi</th>
+          <tr class="bg-gray-200">
+            <th class="p-2 border">No. Anggota</th>
+            <th class="p-2 border">Nama</th>
+            <th class="p-2 border">TTL</th>
+            <th class="p-2 border">Alamat</th>
+            <th class="p-2 border">Jenis Kelamin</th>
+            <th class="p-2 border">Email</th>
+            <th class="p-2 border">No. Telepon</th>
+            <th class="p-2 border">Masa Berlaku</th>
+            <th class="p-2 border">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +81,7 @@
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@1.6.5/dist/flowbite.min.js"></script>
   <script src="perpustakaan.js"></script>
 </body>
 </html>
