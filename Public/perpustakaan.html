@@ -4,23 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Member Perpustakaan</title>
-  <!-- Tambahkan TailwindCSS dan Flowbite -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.css" rel="stylesheet">
-  <!-- Tambahkan Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite/css/flowbite.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <!-- Header -->
+<body>
   <header class="bg-blue-600 text-white py-4">
     <div class="container mx-auto text-center">
-      <h1 class="text-2xl font-bold">Sistem Member Perpustakaan Daerah</h1>
+      <h1 class="text-3xl font-semibold">Sistem Member Perpustakaan Daerah</h1>
     </div>
   </header>
-
-  <main class="container mx-auto py-8">
-    <!-- Form Tambah Member -->
- <section id="form-section" class="mb-8">
+  <main class="container mx-auto my-8">
+    <section id="form-section" class="mb-8">
       <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-xl font-semibold mb-4">Tambah Member Baru</h2>
         <form id="member-form">
@@ -57,9 +53,7 @@
       </div>
     </section>
 
-    <!-- Daftar Member -->
     <section id="member-list-section">
-     <section id="member-list-section">
       <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
         <div class="overflow-x-auto">
@@ -77,16 +71,125 @@
                 <th class="border border-gray-300 px-4 py-2">Aksi</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="member-table-body">
               <!-- Member akan ditambahkan di sini -->
             </tbody>
           </table>
         </div>
       </div>
-     </section>
+    </section>
   </main>
 
-  <!-- Flowbite JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.0/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("member-form");
+  const memberTableBody = document.getElementById("member-table-body");
+
+  // Fetch data member saat halaman dimuat
+  fetchMembers();
+
+  // Tambahkan member baru
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const memberData = {
+      id: document.getElementById("id").value,
+      name: document.getElementById("name").value,
+      birthdate: document.getElementById("birthdate").value,
+      address: document.getElementById("address").value,
+      gender: document.getElementById("gender").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      validity: document.getElementById("validity").value,
+    };
+
+    try {
+      await axios.post(apiUrl, memberData);
+      fetchMembers();
+      form.reset();
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: 'Member berhasil ditambahkan.',
+      });
+    } catch (error) {
+      console.error("Gagal menambahkan member:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: 'Terjadi kesalahan saat menambahkan member.',
+      });
+    }
+  });
+
+  // Ambil data member dari API
+  async function fetchMembers() {
+    try {
+      const response = await axios.get(apiUrl);
+      const members = response.data;
+      displayMembers(members);
+    } catch (error) {
+      console.error("Gagal memuat data member:", error);
+    }
+  }
+
+  // Tampilkan data member di tabel
+  function displayMembers(members) {
+    memberTableBody.innerHTML = "";
+    members.forEach(member => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td class="border border-gray-300 px-4 py-2">${member.id}</td>
+        <td class="border border-gray-300 px-4 py-2">${member.name}</td>
+        <td class="border border-gray-300 px-4 py-2">${new Date(member.birthdate).toLocaleDateString('id-ID')}</td>
+        <td class="border border-gray-300 px-4 py-2">${member.address}</td>
+        <td class="border border-gray-300 px-4 py-2">${member.gender}</td>
+        <td class="border border-gray-300 px-4 py-2">${member.email}</td>
+        <td class="border border-gray-300 px-4 py-2">${member.phone}</td>
+        <td class="border border-gray-300 px-4 py-2">${new Date(member.validity).toLocaleDateString('id-ID')}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <button class="edit-btn text-blue-600 hover:text-blue-800">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete-btn text-red-600 hover:text-red-800">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      `;
+      row.dataset.memberId = member.id;
+
+      const deleteButton = row.querySelector(".delete-btn");
+      deleteButton.addEventListener("click", () => deleteMember(member.id));
+
+      memberTableBody.appendChild(row);
+    });
+  }
+
+  // Hapus member
+  async function deleteMember(memberId) {
+    try {
+      await axios.delete(`${apiUrl}/${memberId}`);
+      fetchMembers();
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: 'Member berhasil dihapus.',
+      });
+    } catch (error) {
+      console.error("Gagal menghapus member:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: 'Terjadi kesalahan saat menghapus member.',
+      });
+    }
+  }
+});
+
+  </script>
 </body>
 </html>
