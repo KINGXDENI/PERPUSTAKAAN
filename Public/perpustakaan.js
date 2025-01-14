@@ -49,15 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
     row.dataset.id = member.id;
 
     row.innerHTML = `
-      <td>${member.id}</td>
-      <td>${member.name}</td>
-      <td>${member.birthdate}</td>
-      <td>${member.address}</td>
-      <td>${member.gender}</td>
-      <td>${member.email}</td>
-      <td>${member.phone}</td>
-      <td>${member.validity}</td>
-      <td>
+      <td class="border border-gray-300 px-4 py-2">${member.id}</td>
+      <td class="border border-gray-300 px-4 py-2">${member.name}</td>
+      <td class="border border-gray-300 px-4 py-2">${new Date(member.birthdate).toLocaleDateString('id-ID')}</td>
+      <td class="border border-gray-300 px-4 py-2">${member.address}</td>
+      <td class="border border-gray-300 px-4 py-2">${member.gender}</td>
+      <td class="border border-gray-300 px-4 py-2">${member.email}</td>
+      <td class="border border-gray-300 px-4 py-2">${member.phone}</td>
+      <td class="border border-gray-300 px-4 py-2">${new Date(member.validity).toLocaleDateString('id-ID')}</td>
+      <td class="border border-gray-300 px-4 py-2">
         <button class="edit-btn text-blue-600 hover:text-blue-800">
           <i class="fas fa-edit"></i>
         </button>
@@ -91,36 +91,36 @@ document.addEventListener("DOMContentLoaded", () => {
       <div>
         <h3>Edit Member</h3>
         <label>No. Anggota:</label>
-        <input type="text" id="edit-id" value="${member.id}" readonly>
+        <input type="text" id="edit-id" value="${member.id}" readonly class="input mb-2">
 
         <label>Nama:</label>
-        <input type="text" id="edit-name" value="${member.name}">
+        <input type="text" id="edit-name" value="${member.name}" class="input mb-2">
 
         <label>TTL:</label>
-        <input type="date" id="edit-birthdate" value="${member.birthdate}">
+        <input type="date" id="edit-birthdate" value="${member.birthdate}" class="input mb-2">
 
         <label>Alamat:</label>
-        <textarea id="edit-address">${member.address}</textarea>
+        <textarea id="edit-address" class="textarea mb-2">${member.address}</textarea>
 
         <label>Jenis Kelamin:</label>
-        <select id="edit-gender">
+        <select id="edit-gender" class="select mb-2">
           <option value="Laki-Laki" ${member.gender === "Laki-Laki" ? "selected" : ""}>Laki-Laki</option>
           <option value="Perempuan" ${member.gender === "Perempuan" ? "selected" : ""}>Perempuan</option>
         </select>
 
         <label>Email:</label>
-        <input type="email" id="edit-email" value="${member.email}">
+        <input type="email" id="edit-email" value="${member.email}" class="input mb-2">
 
         <label>Nomor Telepon:</label>
-        <input type="tel" id="edit-phone" value="${member.phone}">
+        <input type="tel" id="edit-phone" value="${member.phone}" class="input mb-2">
 
         <label>Masa Berlaku:</label>
-        <input type="date" id="edit-validity" value="${member.validity}">
+        <input type="date" id="edit-validity" value="${member.validity}" class="input mb-2">
 
-        <button id="save-edit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button id="save-edit" class="btn btn-primary mr-2">
           Simpan
         </button>
-        <button id="cancel-edit" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        <button id="cancel-edit" class="btn btn-secondary">
           Batal
         </button>
       </div>
@@ -151,15 +151,15 @@ document.addEventListener("DOMContentLoaded", () => {
           // Perbarui tampilan tabel
           const row = document.querySelector(`tr[data-id="${member.id}"]`);
           row.innerHTML = `
-            <td>${updatedMember.id}</td>
-            <td>${updatedMember.name}</td>
-            <td>${updatedMember.birthdate}</td>
-            <td>${updatedMember.address}</td>
-            <td>${updatedMember.gender}</td>
-            <td>${updatedMember.email}</td>
-            <td>${updatedMember.phone}</td>
-            <td>${updatedMember.validity}</td>
-            <td>
+            <td class="border border-gray-300 px-4 py-2">${updatedMember.id}</td>
+            <td class="border border-gray-300 px-4 py-2">${updatedMember.name}</td>
+            <td class="border border-gray-300 px-4 py-2">${new Date(updatedMember.birthdate).toLocaleDateString('id-ID')}</td>
+            <td class="border border-gray-300 px-4 py-2">${updatedMember.address}</td>
+            <td class="border border-gray-300 px-4 py-2">${updatedMember.gender}</td>
+            <td class="border border-gray-300 px-4 py-2">${updatedMember.email}</td>
+            <td class="border border-gray-300 px-4 py-2">${updatedMember.phone}</td>
+            <td class="border border-gray-300 px-4 py-2">${new Date(updatedMember.validity).toLocaleDateString('id-ID')}</td>
+            <td class="border border-gray-300 px-4 py-2">
               <button class="edit-btn text-blue-600 hover:text-blue-800">
                 <i class="fas fa-edit"></i>
               </button>
