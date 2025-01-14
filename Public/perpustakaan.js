@@ -6,13 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch data member saat halaman dimuat
   fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(member => addMemberToTable(member));
-    });
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((member) => {
+        addMemberToTable(member);
+      });
+    })
+    .catch((error) => console.error("Gagal memuat data member:", error));
 
   // Tambahkan member baru
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const memberData = {
@@ -26,32 +29,35 @@ document.addEventListener("DOMContentLoaded", () => {
       validity: document.getElementById("validity").value,
     };
 
+    // Kirim data ke server
     fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(memberData),
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then(() => {
         addMemberToTable(memberData);
         form.reset();
-      });
+      })
+      .catch((error) => console.error("Gagal menambahkan member:", error));
   });
 
+  // Tambahkan baris data ke tabel
   function addMemberToTable(member) {
     const row = document.createElement("tr");
     row.dataset.id = member.id;
 
     row.innerHTML = `
-      <td class="px-4 py-2">${member.id}</td>
-      <td class="px-4 py-2">${member.name}</td>
-      <td class="px-4 py-2">${member.birthdate}</td>
-      <td class="px-4 py-2">${member.address}</td>
-      <td class="px-4 py-2">${member.gender}</td>
-      <td class="px-4 py-2">${member.email}</td>
-      <td class="px-4 py-2">${member.phone}</td>
-      <td class="px-4 py-2">${member.validity}</td>
-      <td class="px-4 py-2 text-center">
+      <td>${member.id}</td>
+      <td>${member.name}</td>
+      <td>${member.birthdate}</td>
+      <td>${member.address}</td>
+      <td>${member.gender}</td>
+      <td>${member.email}</td>
+      <td>${member.phone}</td>
+      <td>${member.validity}</td>
+      <td>
         <button class="edit-btn text-blue-600 hover:text-blue-800">
           <i class="fas fa-edit"></i>
         </button>
@@ -61,54 +67,68 @@ document.addEventListener("DOMContentLoaded", () => {
       </td>
     `;
 
-    row.querySelector(".edit-btn").addEventListener("click", () => editMember(member));
-    row.querySelector(".delete-btn").addEventListener("click", () => deleteMember(member.id, row));
+    // Tombol edit
+    const editButton = row.querySelector(".edit-btn");
+    editButton.addEventListener("click", () => {
+      editMember(member);
+    });
+
+    // Tombol hapus
+    const deleteButton = row.querySelector(".delete-btn");
+    deleteButton.addEventListener("click", () => {
+      deleteMember(member.id, row);
+    });
+
     memberTableBody.appendChild(row);
   }
 
+  // Fungsi Edit
   function editMember(member) {
     const formEdit = document.createElement("div");
-    formEdit.classList.add("fixed", "inset-0", "bg-gray-800", "bg-opacity-50", "flex", "items-center", "justify-center");
+    formEdit.classList.add("edit-form");
 
     formEdit.innerHTML = `
-      <div class="bg-white rounded-lg shadow-lg p-6">
-        <h3 class="text-lg font-bold mb-4">Edit Member</h3>
-        <label class="block mb-2">No. Anggota:</label>
-        <input type="text" id="edit-id" value="${member.id}" class="block w-full mb-4" readonly>
+      <div>
+        <h3>Edit Member</h3>
+        <label>No. Anggota:</label>
+        <input type="text" id="edit-id" value="${member.id}" readonly>
 
-        <label class="block mb-2">Nama:</label>
-        <input type="text" id="edit-name" value="${member.name}" class="block w-full mb-4">
+        <label>Nama:</label>
+        <input type="text" id="edit-name" value="${member.name}">
 
-        <label class="block mb-2">TTL:</label>
-        <input type="date" id="edit-birthdate" value="${member.birthdate}" class="block w-full mb-4">
+        <label>TTL:</label>
+        <input type="date" id="edit-birthdate" value="${member.birthdate}">
 
-        <label class="block mb-2">Alamat:</label>
-        <textarea id="edit-address" class="block w-full mb-4">${member.address}</textarea>
+        <label>Alamat:</label>
+        <textarea id="edit-address">${member.address}</textarea>
 
-        <label class="block mb-2">Jenis Kelamin:</label>
-        <select id="edit-gender" class="block w-full mb-4">
+        <label>Jenis Kelamin:</label>
+        <select id="edit-gender">
           <option value="Laki-Laki" ${member.gender === "Laki-Laki" ? "selected" : ""}>Laki-Laki</option>
           <option value="Perempuan" ${member.gender === "Perempuan" ? "selected" : ""}>Perempuan</option>
         </select>
 
-        <label class="block mb-2">Email:</label>
-        <input type="email" id="edit-email" value="${member.email}" class="block w-full mb-4">
+        <label>Email:</label>
+        <input type="email" id="edit-email" value="${member.email}">
 
-        <label class="block mb-2">Nomor Telepon:</label>
-        <input type="tel" id="edit-phone" value="${member.phone}" class="block w-full mb-4">
+        <label>Nomor Telepon:</label>
+        <input type="tel" id="edit-phone" value="${member.phone}">
 
-        <label class="block mb-2">Masa Berlaku:</label>
-        <input type="date" id="edit-validity" value="${member.validity}" class="block w-full mb-4">
+        <label>Masa Berlaku:</label>
+        <input type="date" id="edit-validity" value="${member.validity}">
 
-        <div class="flex justify-end space-x-4">
-          <button id="save-edit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Simpan</button>
-          <button id="cancel-edit" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Batal</button>
-        </div>
+        <button id="save-edit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          Simpan
+        </button>
+        <button id="cancel-edit" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+          Batal
+        </button>
       </div>
     `;
 
     document.body.appendChild(formEdit);
 
+    // Simpan perubahan
     document.getElementById("save-edit").addEventListener("click", () => {
       const updatedMember = {
         id: member.id,
@@ -126,8 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedMember),
       })
-        .then(response => response.json())
+        .then((response) => response.json())
         .then(() => {
+          // Perbarui tampilan tabel
           const row = document.querySelector(`tr[data-id="${member.id}"]`);
           row.innerHTML = `
             <td>${updatedMember.id}</td>
@@ -147,18 +168,25 @@ document.addEventListener("DOMContentLoaded", () => {
               </button>
             </td>
           `;
-          formEdit.remove();
-        });
+          document.body.removeChild(formEdit);
+        })
+        .catch((error) => console.error("Gagal menyimpan perubahan:", error));
     });
 
-    document.getElementById("cancel-edit").addEventListener("click", () => formEdit.remove());
+    // Batal
+    document.getElementById("cancel-edit").addEventListener("click", () => {
+      document.body.removeChild(formEdit);
+    });
   }
 
+  // Fungsi Hapus
   function deleteMember(id, row) {
     if (confirm("Anda yakin ingin menghapus member ini?")) {
       fetch(`${apiUrl}/${id}`, { method: "DELETE" })
-        .then(() => row.remove())
-        .catch(err => console.error("Gagal menghapus member:", err));
+        .then(() => {
+          row.remove();
+        })
+        .catch((error) => console.error("Gagal menghapus member:", error));
     }
   }
 });
