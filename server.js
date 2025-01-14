@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 });
 // Endpoint untuk mendapatkan semua member
 app.get("/api/members", (req, res) => {
-  const sql = "SELECT * FROM member";
+  const sql = "SELECT * FROM members";
   db.query(sql, (err, results) => {
     if (err) {
       console.error("Error saat mengambil data:", err.message);
