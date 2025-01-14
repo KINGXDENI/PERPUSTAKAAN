@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000/api/members"; // Sesuaikan URL API Anda.
+const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("member-form");
