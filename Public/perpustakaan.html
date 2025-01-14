@@ -28,65 +28,60 @@
       <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-xl font-semibold mb-4">Tambah Member Baru</h2>
         <form id="member-form">
-          <div>
-            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-            <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
-        </div>
-          <div class="mb-6">
-            <label for="id" class="block mb-2 text-sm font-medium text-gray-900">Nomor Anggota:</label>
-            <input type="text" id="id" class="input" required>
-          </div>
+  <div>
+    <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Anggota:</label>
+    <input type="text" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
 
-          <div class="mb-6">
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama:</label>
-            <input type="text" id="name" class="input" required>
-          </div>
+  <div class="mt-4">
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama:</label>
+    <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
 
-          <div class="mb-6">
-            <label for="birthdate" class="block mb-2 text-sm font-medium text-gray-900">Tanggal Lahir:</label>
-            <input type="date" id="birthdate" class="input" required>
-          </div>
+  <div class="mt-4">
+    <label for="birthdate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir:</label>
+    <input type="date" id="birthdate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
 
-          <div class="mb-6">
-            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat:</label>
-            <textarea id="address" class="textarea" required></textarea>
-          </div>
+  <div class="mt-4">
+    <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat:</label>
+    <textarea id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
+  </div>
 
-          <div class="mb-6">
-            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jenis Kelamin:</label>
-            <select id="gender" class="select" required>
-              <option value="">Pilih Jenis Kelamin</option>
-              <option value="Laki-Laki">Laki-Laki</option>
-              <option value="Perempuan">Perempuan</option>
-            </select>
-          </div>
+  <div class="mt-4">
+    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin:</label>
+    <select id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+      <option value="">Pilih Jenis Kelamin</option>
+      <option value="Laki-Laki">Laki-Laki</option>
+      <option value="Perempuan">Perempuan</option>
+    </select>
+  </div>
 
-          <div class="mb-6">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email:</label>
-            <input type="email" id="email" class="input" required>
-          </div>
+  <div class="mt-4">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email:</label>
+    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
 
-          <div class="mb-6">
-            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Nomor Telepon:</label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor" viewBox="0 0 19 18">
-                  <path
-                    d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
-                </svg>
-              </div>
-              <input type="tel" id="phone" class="input pl-10" placeholder="08xx" required>
-            </div>
-          </div>
+  <div class="mt-4">
+    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telepon:</label>
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
+          <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+        </svg>
+      </div>
+      <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08xx" required />
+    </div>
+  </div>
 
-          <div class="mb-6">
-            <label for="validity" class="block mb-2 text-sm font-medium text-gray-900">Masa Berlaku:</label>
-            <input type="date" id="validity" class="input" required>
-          </div>
+  <div class="mt-4">
+    <label for="validity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masa Berlaku:</label>
+    <input type="date" id="validity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
 
-          <button type="submit" class="btn btn-primary">Tambah Member</button>
-        </form>
+  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6 focus:outline-none focus:shadow-outline">Tambah Member</button>
+</form>
+
       </div>
     </section>
 
