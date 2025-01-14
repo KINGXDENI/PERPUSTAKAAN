@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Member Perpustakaan</title>
+  <link rel="stylesheet" href="perpustakaan.css">
+</head>
+<body>
+  <header>
+    <h1>Sistem Member Perpustakaan Daerah</h1>
+  </header>
+  <main>
+    <section id="form-section">
+      <h2>Tambah Member Baru</h2>
+      <form id="member-form">
+        <label for="id">Nomor Anggota:</label>
+        <input type="text" id="id" required>
+
+        <label for="name">Nama:</label>
+        <input type="text" id="name" required>
+
+        <label for="birthdate">Tanggal Lahir:</label>
+        <input type="date" id="birthdate" required>
+
+        <label for="address">Alamat:</label>
+        <textarea id="address" required></textarea>
+
+        <label for="gender">Jenis Kelamin:</label>
+        <select id="gender" required>
+          <option value="">Pilih Jenis Kelamin</option>
+          <option value="Laki-Laki">Laki-Laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="phone">Nomor Telepon:</label>
+        <input type="tel" id="phone" required>
+
+        <label for="validity">Masa Berlaku:</label>
+        <input type="date" id="validity" required>
+
+        <button type="submit">Tambah Member</button>
+      </form>
+    </section>
+
+    <section id="member-list-section">
+      <h2>Daftar Member</h2>
+      <table id="member-table">
+        <thead>
+          <tr>
+            <th>No. Anggota</th>
+            <th>Nama</th>
+            <th>TTL</th>
+            <th>Alamat</th>
+            <th>Jenis Kelamin</th>
+            <th>Email</th>
+            <th>No. Telepon</th>
+            <th>Masa Berlaku</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Member akan ditambahkan di sini -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="perpustakaan.js"></script>
+</body>
+</html>
