@@ -142,15 +142,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
-  <script>
+<script>
   const apiUrl = "https://perpustakaan.dibo.biz.id/api/members"; // Sesuaikan URL API Anda.
 
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("member-form");
-    const memberTableBody = document.getElementById("member-table-body");
 
-    // Inisialisasi DataTables
-    const dataTable = new DataTable("#member-table", {
+    // Inisialisasi DataTable
+    const table = new simpleDatatables.DataTable("#member-table", {
       searchable: true,  // Mengaktifkan fitur pencarian
       fixedHeight: true,
     });
@@ -197,11 +196,17 @@
       try {
         const response = await axios.get(apiUrl);
         const members = response.data;
-
-        // Format data untuk DataTable
         const customData = {
           headings: [
-            "ID", "Name", "Birthdate", "Address", "Gender", "Email", "Phone", "Validity", "Actions"
+            "ID",
+            "Name",
+            "Birthdate",
+            "Address",
+            "Gender",
+            "Email",
+            "Phone",
+            "Validity",
+            "Actions"
           ],
           data: members.map(member => [
             member.id,
@@ -213,36 +218,30 @@
             member.phone,
             new Date(member.validity).toLocaleDateString('id-ID'),
             `<button class="edit-btn text-blue-600 hover:text-blue-800">
-               <i class="fas fa-edit"></i>
-             </button>
-             <button class="delete-btn text-red-600 hover:text-red-800">
-               <i class="fas fa-trash"></i>
-             </button>`
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="delete-btn text-red-600 hover:text-red-800">
+              <i class="fas fa-trash"></i>
+            </button>`
           ])
         };
-
-        // Update DataTable dengan data baru
-        dataTable.update(customData);
-        attachDeleteEvents(); // Untuk menambahkan event delete ke tombol
+        updateTable(customData);
       } catch (error) {
         console.error("Gagal memuat data member:", error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Gagal!',
-          text: 'Terjadi kesalahan saat memuat data member.',
-        });
       }
     }
 
-    // Fungsi untuk menangani event delete
-    function attachDeleteEvents() {
-      const deleteButtons = document.querySelectorAll(".delete-btn");
-      deleteButtons.forEach((deleteButton) => {
-        deleteButton.addEventListener("click", (e) => {
-          const memberId = e.target.closest("tr").dataset.memberId;
-          deleteMember(memberId);
-        });
+    // Update DataTable dengan data terbaru
+    function updateTable(customData) {
+      // Hapus DataTable lama
+      const tableElement = document.querySelector("#member-table");
+      tableElement.innerHTML = ''; // Clear the table
+      const newTable = new simpleDatatables.DataTable(tableElement, {
+        searchable: true,
+        fixedHeight: true,
+        data: customData
       });
+      // Re-render DataTable
     }
 
     // Hapus member
@@ -266,6 +265,7 @@
     }
   });
 </script>
+
 
 
 </body>
