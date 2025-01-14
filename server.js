@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = 6666;
 
 // Middleware
 app.use(cors()); // Untuk mengizinkan permintaan lintas asal (frontend-backend)
@@ -28,11 +28,11 @@ db.connect((err) => {
   }
   console.log("Berhasil terhubung ke database!");
 });
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 
 // Menyediakan endpoint atau mengatur routing
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'perpustakaan.html'));
+    res.sendFile(path.join(__dirname, 'Public', 'perpustakaan.html'));
 });
 // Endpoint untuk mendapatkan semua member
 app.get("/api/members", (req, res) => {
