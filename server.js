@@ -35,7 +35,7 @@ db.connect((err) => {
       name VARCHAR(100) NOT NULL,
       birthdate DATE,
       address TEXT,
-      gender ENUM('male', 'female') NOT NULL,
+      gender ENUM('Laki-Laki', 'Perempuan') NOT NULL,
       email VARCHAR(100) UNIQUE,
       phone VARCHAR(20),
       validity DATE
