@@ -27,7 +27,29 @@ db.connect((err) => {
     return;
   }
   console.log("Berhasil terhubung ke database!");
+
+  // Buat tabel members jika belum ada
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS members (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      birthdate DATE,
+      address TEXT,
+      gender ENUM('male', 'female') NOT NULL,
+      email VARCHAR(100) UNIQUE,
+      phone VARCHAR(20),
+      validity DATE
+    )`;
+
+  db.query(createTableQuery, (err) => {
+    if (err) {
+      console.error("Error saat membuat tabel members:", err.message);
+    } else {
+      console.log("Tabel members siap digunakan atau sudah ada.");
+    }
+  });
 });
+
 app.use(express.static(path.join(__dirname, 'Public')));
 
 // Menyediakan endpoint atau mengatur routing
