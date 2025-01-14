@@ -196,6 +196,8 @@
       try {
         const response = await axios.get(apiUrl);
         const members = response.data;
+
+        // Membuat data untuk DataTable
         const customData = {
           headings: [
             "ID",
@@ -233,7 +235,6 @@
 
     // Update DataTable dengan data terbaru
     function updateTable(customData) {
-      // Hapus DataTable lama
       const tableElement = document.querySelector("#member-table");
       tableElement.innerHTML = ''; // Clear the table
       const newTable = new simpleDatatables.DataTable(tableElement, {
@@ -241,7 +242,6 @@
         fixedHeight: true,
         data: customData
       });
-      // Re-render DataTable
     }
 
     // Hapus member
@@ -265,6 +265,7 @@
     }
   });
 </script>
+
 
 
 
