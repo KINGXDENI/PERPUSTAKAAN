@@ -144,7 +144,7 @@
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
   <script>
     
-    const apiUrl = "https://perpustakaan.dibo.biz.id/api/members";
+   const apiUrl = "https://perpustakaan.dibo.biz.id/api/members";
 
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.getElementById("member-form");
@@ -154,110 +154,112 @@
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const memberData = { /* Ambil data form */ };
+        const memberData = {
+          id: document.getElementById("id").value,
+          name: document.getElementById("name").value,
+          birthdate: document.getElementById("birthdate").value,
+          address: document.getElementById("address").value,
+          gender: document.getElementById("gender").value,
+          email: document.getElementById("email").value,
+          phone: document.getElementById("phone").value,
+          validity: document.getElementById("validity").value,
+        };
+
         try {
           await axios.post(apiUrl, memberData);
-          fetchMembers();
           form.reset();
-          Swal.fire({ icon: 'success', title: 'Berhasil!', text: 'Member berhasil ditambahkan.' });
+          fetchMembers();
+          Swal.fire('Berhasil!', 'Member berhasil ditambahkan.', 'success');
         } catch (error) {
-          Swal.fire({ icon: 'error', title: 'Gagal!', text: 'Terjadi kesalahan.' });
+          console.error(error);
+          Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
         }
       });
 
       async function fetchMembers() {
         try {
           const response = await axios.get(apiUrl);
-          displayMembers(response.data);
+          const members = response.data;
+          displayMembers(members);
         } catch (error) {
-          console.error("Gagal memuat data member:", error);
+          console.error("Error fetching members:", error);
         }
       }
 
       function displayMembers(members) {
         memberTableBody.innerHTML = "";
-        members.forEach(member => {
+        members.forEach((member) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td>${member.id}</td>
-            <td>${member.name}</td>
-            <td>${new Date(member.birthdate).toLocaleDateString()}</td>
-            <td>${member.address}</td>
-            <td>${member.gender}</td>
-            <td>${member.email}</td>
-            <td>${member.phone}</td>
-            <td>${new Date(member.validity).toLocaleDateString()}</td>
-            <td>
-              <button class="edit-btn text-blue-600">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="delete-btn text-red-600">
-                <i class="fas fa-trash"></i>
-              </button>
+            <td class="border px-4 py-2">${member.id}</td>
+            <td class="border px-4 py-2">${member.name}</td>
+            <td class="border px-4 py-2">${new Date(member.birthdate).toLocaleDateString()}</td>
+            <td class="border px-4 py-2">${member.address}</td>
+            <td class="border px-4 py-2">${member.gender}</td>
+            <td class="border px-4 py-2">${member.email}</td>
+            <td class="border px-4 py-2">${member.phone}</td>
+            <td class="border px-4 py-2">${new Date(member.validity).toLocaleDateString()}</td>
+            <td class="border px-4 py-2">
+              <button class="text-blue-500" onclick="editMember(${JSON.stringify(member)})">Edit</button>
+              <button class="text-red-500" onclick="deleteMember('${member.id}')">Hapus</button>
             </td>
           `;
-          row.querySelector(".edit-btn").addEventListener("click", () => loadMemberForEdit(member));
-          row.querySelector(".delete-btn").addEventListener("click", () => deleteMember(member.id));
           memberTableBody.appendChild(row);
         });
       }
 
-      function loadMemberForEdit(member) {
+      async function deleteMember(id) {
+        try {
+          await axios.delete(`${apiUrl}/${id}`);
+          fetchMembers();
+          Swal.fire('Berhasil!', 'Member berhasil dihapus.', 'success');
+        } catch (error) {
+          console.error(error);
+          Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
+        }
+      }
+
+      window.editMember = function (member) {
         Swal.fire({
           title: 'Edit Member',
           html: `
-            <form>
-              <input type="text" id="edit-id" class="swal2-input" value="${member.id}" readonly />
-              <input type="text" id="edit-name" class="swal2-input" value="${member.name}" />
-              <input type="date" id="edit-birthdate" class="swal2-input" value="${member.birthdate}" />
-              <textarea id="edit-address" class="swal2-input">${member.address}</textarea>
-              <select id="edit-gender" class="swal2-input">
-                <option value="Laki-Laki" ${member.gender === 'Laki-Laki' ? 'selected' : ''}>Laki-Laki</option>
-                <option value="Perempuan" ${member.gender === 'Perempuan' ? 'selected' : ''}>Perempuan</option>
-              </select>
-              <input type="email" id="edit-email" class="swal2-input" value="${member.email}" />
-              <input type="tel" id="edit-phone" class="swal2-input" value="${member.phone}" />
-              <input type="date" id="edit-validity" class="swal2-input" value="${member.validity}" />
-            </form>
+            <input id="edit-id" class="swal2-input" value="${member.id}" readonly />
+            <input id="edit-name" class="swal2-input" value="${member.name}" />
+            <input id="edit-birthdate" class="swal2-input" type="date" value="${member.birthdate}" />
+            <textarea id="edit-address" class="swal2-input">${member.address}</textarea>
+            <select id="edit-gender" class="swal2-input">
+              <option value="Laki-Laki" ${member.gender === "Laki-Laki" ? "selected" : ""}>Laki-Laki</option>
+              <option value="Perempuan" ${member.gender === "Perempuan" ? "selected" : ""}>Perempuan</option>
+            </select>
+            <input id="edit-email" class="swal2-input" type="email" value="${member.email}" />
+            <input id="edit-phone" class="swal2-input" value="${member.phone}" />
+            <input id="edit-validity" class="swal2-input" type="date" value="${member.validity}" />
           `,
           showCancelButton: true,
           confirmButtonText: 'Simpan',
-          preConfirm: () => {
-            return {
-              id: document.getElementById('edit-id').value,
-              name: document.getElementById('edit-name').value,
-              birthdate: document.getElementById('edit-birthdate').value,
-              address: document.getElementById('edit-address').value,
-              gender: document.getElementById('edit-gender').value,
-              email: document.getElementById('edit-email').value,
-              phone: document.getElementById('edit-phone').value,
-              validity: document.getElementById('edit-validity').value,
-            };
+          preConfirm: () => ({
+            id: document.getElementById('edit-id').value,
+            name: document.getElementById('edit-name').value,
+            birthdate: document.getElementById('edit-birthdate').value,
+            address: document.getElementById('edit-address').value,
+            gender: document.getElementById('edit-gender').value,
+            email: document.getElementById('edit-email').value,
+            phone: document.getElementById('edit-phone').value,
+            validity: document.getElementById('edit-validity').value,
+          }),
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await axios.put(`${apiUrl}/${result.value.id}`, result.value);
+              fetchMembers();
+              Swal.fire('Berhasil!', 'Member berhasil diupdate.', 'success');
+            } catch (error) {
+              console.error(error);
+              Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
+            }
           }
-        }).then((result) => {
-          if (result.isConfirmed) updateMember(result.value);
         });
-      }
-
-      async function updateMember(memberData) {
-        try {
-          await axios.put(`${apiUrl}/${memberData.id}`, memberData);
-          fetchMembers();
-          Swal.fire({ icon: 'success', title: 'Berhasil!', text: 'Member berhasil diperbarui.' });
-        } catch (error) {
-          Swal.fire({ icon: 'error', title: 'Gagal!', text: 'Terjadi kesalahan.' });
-        }
-      }
-
-      async function deleteMember(memberId) {
-        try {
-          await axios.delete(`${apiUrl}/${memberId}`);
-          fetchMembers();
-          Swal.fire({ icon: 'success', title: 'Berhasil!', text: 'Member berhasil dihapus.' });
-        } catch (error) {
-          Swal.fire({ icon: 'error', title: 'Gagal!', text: 'Terjadi kesalahan.' });
-        }
-      }
+      };
     });
 
   </script>
