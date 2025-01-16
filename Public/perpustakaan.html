@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Member Perpustakaan</title>
-  <!-- Tailwind CSS (for utility classes) -->
   <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-  <!-- Flowbite CSS (for layout and components) -->
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet">
-  <!-- Font Awesome (for icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- SweetAlert2 (for nicer alerts) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
 </head>
-
 <body class="bg-gray-100">
-
   <header class="bg-blue-600 text-white py-4">
     <div class="container mx-auto text-center">
       <h1 class="text-3xl font-semibold">Sistem Member Perpustakaan Daerah</h1>
@@ -28,273 +21,187 @@
       <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-xl font-semibold mb-4">Tambah Member Baru</h2>
         <form id="member-form">
-  <div>
-    <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Anggota:</label>
-    <input type="text" id="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-  </div>
-
-  <div class="mt-4">
-    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama:</label>
-    <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-  </div>
-
-  <div class="mt-4">
-    <label for="birthdate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir:</label>
-    <input type="date" id="birthdate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-  </div>
-
-  <div class="mt-4">
-    <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat:</label>
-    <textarea id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
-  </div>
-
-  <div class="mt-4">
-    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin:</label>
-    <select id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-      <option value="">Pilih Jenis Kelamin</option>
-      <option value="Laki-Laki">Laki-Laki</option>
-      <option value="Perempuan">Perempuan</option>
-    </select>
-  </div>
-
-  <div class="mt-4">
-    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email:</label>
-    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-  </div>
-
-  <div class="mt-4">
-    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telepon:</label>
-    <div class="relative">
-      <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-        <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
-          <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
-        </svg>
-      </div>
-      <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08xx" required />
-    </div>
-  </div>
-
-  <div class="mt-4">
-    <label for="validity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masa Berlaku:</label>
-    <input type="date" id="validity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-  </div>
-
-  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6 focus:outline-none focus:shadow-outline">Tambah Member</button>
-</form>
-
+          <input type="text" id="id" placeholder="Nomor Anggota" required class="input-field" />
+          <input type="text" id="name" placeholder="Nama" required class="input-field" />
+          <input type="date" id="birthdate" required class="input-field" />
+          <textarea id="address" placeholder="Alamat" required class="input-field"></textarea>
+          <select id="gender" required class="input-field">
+            <option value="">Pilih Jenis Kelamin</option>
+            <option value="Laki-Laki">Laki-Laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+          <input type="email" id="email" placeholder="Email" required class="input-field" />
+          <input type="tel" id="phone" placeholder="Nomor Telepon" required class="input-field" />
+          <input type="date" id="validity" required class="input-field" />
+          <button type="submit" class="btn-submit">Tambah Member</button>
+        </form>
       </div>
     </section>
 
-
-<section id="member-list-section">
-  <div class="bg-white shadow-md rounded-lg p-6">
-    <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
-    <div class="overflow-x-auto">
-      <table id="member-table"
-        class="table-auto w-full border-collapse border border-gray-200">
-        <thead>
-          <tr class="bg-gray-100 text-gray-700">
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">No. Anggota</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">Nama</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">TTL</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">Alamat</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">Jenis Kelamin</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">Email</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">No. Telepon</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">Masa Berlaku</span>
-            </th>
-            <th class="border border-gray-300 px-4 py-2">
-              <span class="flex items-center">Aksi</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody id="member-table-body">
-          <!-- Member akan ditambahkan di sini -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-
-
+    <section id="member-list-section">
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Daftar Member</h2>
+        <div class="overflow-x-auto">
+          <table id="member-table" class="w-full border">
+            <thead>
+              <tr>
+                <th>No. Anggota</th>
+                <th>Nama</th>
+                <th>TTL</th>
+                <th>Alamat</th>
+                <th>Jenis Kelamin</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th>Masa Berlaku</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="member-table-body">
+              <!-- Member akan ditambahkan di sini -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Axios for making HTTP requests -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <!-- Flowbite JS for layout and components -->
-  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+
   <script>
-    
-   const apiUrl = "https://perpustakaan.dibo.biz.id/api/members";
+    const apiUrl = "https://perpustakaan.dibo.biz.id/api/members";
+    const form = document.getElementById("member-form");
+    const memberTableBody = document.getElementById("member-table-body");
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("member-form");
-      const memberTableBody = document.getElementById("member-table-body");
+    document.addEventListener("DOMContentLoaded", fetchMembers);
 
-      fetchMembers();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const memberData = {
+        id: document.getElementById("id").value,
+        name: document.getElementById("name").value,
+        birthdate: document.getElementById("birthdate").value,
+        address: document.getElementById("address").value,
+        gender: document.getElementById("gender").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        validity: document.getElementById("validity").value,
+      };
+      try {
+        await axios.post(apiUrl, memberData);
+        form.reset();
+        fetchMembers();
+        Swal.fire("Berhasil", "Member ditambahkan", "success");
+      } catch {
+        Swal.fire("Gagal", "Terjadi kesalahan", "error");
+      }
+    });
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const memberData = {
-          id: document.getElementById("id").value,
-          name: document.getElementById("name").value,
-          birthdate: document.getElementById("birthdate").value,
-          address: document.getElementById("address").value,
-          gender: document.getElementById("gender").value,
-          email: document.getElementById("email").value,
-          phone: document.getElementById("phone").value,
-          validity: document.getElementById("validity").value,
-        };
+    async function fetchMembers() {
+      try {
+        const response = await axios.get(apiUrl);
+        displayMembers(response.data);
+      } catch {
+        console.error("Gagal memuat data member");
+      }
+    }
 
-        try {
-          await axios.post(apiUrl, memberData);
-          form.reset();
-          fetchMembers();
-          Swal.fire('Berhasil!', 'Member berhasil ditambahkan.', 'success');
-        } catch (error) {
-          console.error(error);
-          Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
-        }
+    function displayMembers(members) {
+      memberTableBody.innerHTML = "";
+      members.forEach((member) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${member.id}</td>
+          <td>${member.name}</td>
+          <td>${new Date(member.birthdate).toLocaleDateString('id-ID')}</td>
+          <td>${member.address}</td>
+          <td>${member.gender}</td>
+          <td>${member.email}</td>
+          <td>${member.phone}</td>
+          <td>${new Date(member.validity).toLocaleDateString('id-ID')}</td>
+          <td>
+            <button class="edit-btn" data-member='${JSON.stringify(member)}'>Edit</button>
+            <button class="delete-btn" data-id="${member.id}">Hapus</button>
+          </td>`;
+        memberTableBody.appendChild(row);
       });
 
-      async function fetchMembers() {
-  try {
-    const response = await axios.get(apiUrl);
-    const members = response.data;
-    displayMembers(members);
-  } catch (error) {
-    console.error("Error fetching members:", error);
-  }
-}
+      document.querySelectorAll(".edit-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const member = JSON.parse(button.getAttribute("data-member"));
+          editMember(member);
+        });
+      });
 
-function displayMembers(members) {
-  memberTableBody.innerHTML = "";
-  members.forEach((member) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td class="border px-4 py-2">${member.id}</td>
-      <td class="border px-4 py-2">${member.name}</td>
-      <td class="border px-4 py-2">${new Date(member.birthdate).toLocaleDateString()}</td>
-      <td class="border px-4 py-2">${member.address}</td>
-      <td class="border px-4 py-2">${member.gender}</td>
-      <td class="border px-4 py-2">${member.email}</td>
-      <td class="border px-4 py-2">${member.phone}</td>
-      <td class="border px-4 py-2">${new Date(member.validity).toLocaleDateString()}</td>
-      <td class="border px-4 py-2">
-        <button class="edit-btn text-blue-500" data-id="${member.id}" data-member='${JSON.stringify(member)}'>Edit</button>
-        <button class="delete-btn text-red-500" data-id="${member.id}">Hapus</button>
-      </td>
-    `;
-    memberTableBody.appendChild(row);
-  });
-
-  // Tambahkan event listener ke tombol edit dan hapus
-  document.querySelectorAll(".edit-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      const member = JSON.parse(button.getAttribute("data-member"));
-      editMember(member);
-    });
-  });
-
-  document.querySelectorAll(".delete-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      const memberId = button.getAttribute("data-id");
-      confirmDelete(memberId);
-    });
-  });
-}
-
-function confirmDelete(id) {
-  Swal.fire({
-    title: 'Apakah Anda yakin?',
-    text: 'Member akan dihapus secara permanen!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Ya, hapus!',
-    cancelButtonText: 'Batal'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        await axios.delete(`${apiUrl}/${id}`);
-        fetchMembers();
-        Swal.fire('Berhasil!', 'Member berhasil dihapus.', 'success');
-      } catch (error) {
-        console.error(error);
-        Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
-      }
+      document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const memberId = button.getAttribute("data-id");
+          confirmDelete(memberId);
+        });
+      });
     }
-  });
-}
 
-function editMember(member) {
-  Swal.fire({
-    title: 'Edit Member',
-    html: `
-      <input id="edit-id" class="swal2-input" value="${member.id}" readonly />
-      <input id="edit-name" class="swal2-input" value="${member.name}" />
-      <input id="edit-birthdate" class="swal2-input" type="date" value="${member.birthdate}" />
-      <textarea id="edit-address" class="swal2-input">${member.address}</textarea>
-      <select id="edit-gender" class="swal2-input">
-        <option value="Laki-Laki" ${member.gender === "Laki-Laki" ? "selected" : ""}>Laki-Laki</option>
-        <option value="Perempuan" ${member.gender === "Perempuan" ? "selected" : ""}>Perempuan</option>
-      </select>
-      <input id="edit-email" class="swal2-input" type="email" value="${member.email}" />
-      <input id="edit-phone" class="swal2-input" value="${member.phone}" />
-      <input id="edit-validity" class="swal2-input" type="date" value="${member.validity}" />
-    `,
-    showCancelButton: true,
-    confirmButtonText: 'Simpan',
-    preConfirm: () => ({
-      id: document.getElementById('edit-id').value,
-      name: document.getElementById('edit-name').value,
-      birthdate: document.getElementById('edit-birthdate').value,
-      address: document.getElementById('edit-address').value,
-      gender: document.getElementById('edit-gender').value,
-      email: document.getElementById('edit-email').value,
-      phone: document.getElementById('edit-phone').value,
-      validity: document.getElementById('edit-validity').value,
-    }),
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        await axios.put(`${apiUrl}/${result.value.id}`, result.value);
-        fetchMembers();
-        Swal.fire('Berhasil!', 'Member berhasil diupdate.', 'success');
-      } catch (error) {
-        console.error(error);
-        Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
-      }
+    function confirmDelete(id) {
+      Swal.fire({
+        title: "Yakin ingin hapus?",
+        text: "Data tidak dapat dikembalikan!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Ya, Hapus!",
+        cancelButtonText: "Batal",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await axios.delete(`${apiUrl}/${id}`);
+            fetchMembers();
+            Swal.fire("Terhapus!", "Data berhasil dihapus.", "success");
+          } catch {
+            Swal.fire("Gagal", "Tidak dapat menghapus data.", "error");
+          }
+        }
+      });
     }
-  });
-}
 
+    function editMember(member) {
+      Swal.fire({
+        title: "Edit Member",
+        html: `
+          <input id="edit-id" class="swal2-input" value="${member.id}" readonly />
+          <input id="edit-name" class="swal2-input" value="${member.name}" />
+          <input id="edit-birthdate" type="date" class="swal2-input" value="${member.birthdate}" />
+          <textarea id="edit-address" class="swal2-input">${member.address}</textarea>
+          <select id="edit-gender" class="swal2-input">
+            <option value="Laki-Laki" ${member.gender === "Laki-Laki" ? "selected" : ""}>Laki-Laki</option>
+            <option value="Perempuan" ${member.gender === "Perempuan" ? "selected" : ""}>Perempuan</option>
+          </select>
+          <input id="edit-email" class="swal2-input" value="${member.email}" />
+          <input id="edit-phone" class="swal2-input" value="${member.phone}" />
+          <input id="edit-validity" type="date" class="swal2-input" value="${member.validity}" />
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Simpan",
+        preConfirm: () => ({
+          id: document.getElementById("edit-id").value,
+          name: document.getElementById("edit-name").value,
+          birthdate: document.getElementById("edit-birthdate").value,
+          address: document.getElementById("edit-address").value,
+          gender: document.getElementById("edit-gender").value,
+          email: document.getElementById("edit-email").value,
+          phone: document.getElementById("edit-phone").value,
+          validity: document.getElementById("edit-validity").value,
+        }),
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await axios.put(`${apiUrl}/${result.value.id}`, result.value);
+            fetchMembers();
+            Swal.fire("Berhasil", "Data diupdate", "success");
+          } catch {
+            Swal.fire("Gagal", "Tidak dapat mengupdate data", "error");
+          }
+        }
+      });
+    }
   </script>
-
-
-
-
-
 </body>
-
 </html>
