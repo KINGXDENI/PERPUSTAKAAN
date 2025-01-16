@@ -166,7 +166,14 @@
         await axios.post(apiUrl, memberData);
         form.reset();
         fetchMembers();
-        Swal.fire("Berhasil", "Member ditambahkan", "success");
+        Swal.fire({
+  title: "Berhasil",
+  text: "Data berhasil ditambah.",
+  icon: "success",
+  confirmButtonColor: "#28a745", // Ganti dengan warna pilihan, contoh hijau
+  confirmButtonText: "OK"
+});
+
       } catch {
         Swal.fire("Gagal", "Terjadi kesalahan", "error");
       }
@@ -231,7 +238,14 @@ function confirmDelete(id) {
       try {
         await axios.delete(`${apiUrl}/${id}`);
         fetchMembers();
-        Swal.fire("Terhapus!", "Data berhasil dihapus.", "success");
+        Swal.fire({
+  title: "Terhapus!",
+  text: "Data berhasil dihapus.",
+  icon: "success",
+  confirmButtonColor: "#28a745", // Ganti dengan warna pilihan, contoh hijau
+  confirmButtonText: "OK"
+});
+
       } catch {
         Swal.fire("Gagal", "Tidak dapat menghapus data.", "error");
       }
@@ -306,7 +320,15 @@ function editMember(member) {
       try {
         await axios.put(`${apiUrl}/${updatedData.id}`, updatedData);
         fetchMembers();
-        Swal.fire("Berhasil", "Data berhasil diperbarui.", "success");
+Swal.fire({
+  title: "Berhasil",
+  text: "Data berhasil diperbaharui.",
+  icon: "success",
+  confirmButtonColor: "#28a745", // Ganti dengan warna pilihan, contoh hijau
+  confirmButtonText: "OK"
+});
+
+      
       } catch {
         Swal.fire("Gagal", "Tidak dapat memperbarui data.", "error");
       }
