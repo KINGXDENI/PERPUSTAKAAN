@@ -243,40 +243,47 @@ function editMember(member) {
   Swal.fire({
     title: "Edit Member",
     html: `
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Nomor Anggota</label>
-        <input id="edit-id" class="swal2-input" value="${member.id}" readonly />
+      <div>
+        <label for="edit-id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Anggota:</label>
+        <input type="text" id="edit-id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.id}" readonly />
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Nama</label>
-        <input id="edit-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.name}" />
+      <div class="mt-4">
+        <label for="edit-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama:</label>
+        <input type="text" id="edit-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.name}" required />
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Tanggal Lahir</label>
-        <input id="edit-birthdate" type="date" class="swal2-input" value="${member.birthdate}" />
+      <div class="mt-4">
+        <label for="edit-birthdate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir:</label>
+        <input type="date" id="edit-birthdate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.birthdate}" required />
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Alamat</label>
-        <textarea id="edit-address" class="swal2-input">${member.address}</textarea>
+      <div class="mt-4">
+        <label for="edit-address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat:</label>
+        <textarea id="edit-address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>${member.address}</textarea>
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Jenis Kelamin</label>
-        <select id="edit-gender" class="swal2-input">
+      <div class="mt-4">
+        <label for="edit-gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Kelamin:</label>
+        <select id="edit-gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
           <option value="Laki-Laki" ${member.gender === "Laki-Laki" ? "selected" : ""}>Laki-Laki</option>
           <option value="Perempuan" ${member.gender === "Perempuan" ? "selected" : ""}>Perempuan</option>
         </select>
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Email</label>
-        <input id="edit-email" class="swal2-input" value="${member.email}" />
+      <div class="mt-4">
+        <label for="edit-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email:</label>
+        <input type="email" id="edit-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.email}" required />
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Telepon</label>
-        <input id="edit-phone" class="swal2-input" value="${member.phone}" />
+      <div class="mt-4">
+        <label for="edit-phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telepon:</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
+              <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+            </svg>
+          </div>
+          <input type="tel" id="edit-phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.phone}" required />
+        </div>
       </div>
-      <div class="mb-4">
-        <label class="block text-left font-semibold">Masa Berlaku</label>
-        <input id="edit-validity" type="date" class="swal2-input" value="${member.validity}" />
+      <div class="mt-4">
+        <label for="edit-validity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masa Berlaku:</label>
+        <input type="date" id="edit-validity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="${member.validity}" required />
       </div>
     `,
     showCancelButton: true,
@@ -284,25 +291,20 @@ function editMember(member) {
     cancelButtonColor: "#d33",
     confirmButtonText: "Simpan",
     cancelButtonText: "Batal",
-    customClass: {
-      popup: 'shadow-lg rounded-lg',
-      confirmButton: 'px-5 py-2 bg-green-600 text-white rounded hover:bg-green-700',
-      cancelButton: 'px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700'
-    },
-    preConfirm: () => ({
-      id: document.getElementById("edit-id").value,
-      name: document.getElementById("edit-name").value,
-      birthdate: document.getElementById("edit-birthdate").value,
-      address: document.getElementById("edit-address").value,
-      gender: document.getElementById("edit-gender").value,
-      email: document.getElementById("edit-email").value,
-      phone: document.getElementById("edit-phone").value,
-      validity: document.getElementById("edit-validity").value,
-    }),
   }).then(async (result) => {
     if (result.isConfirmed) {
+      const updatedData = {
+        id: document.getElementById("edit-id").value,
+        name: document.getElementById("edit-name").value,
+        birthdate: document.getElementById("edit-birthdate").value,
+        address: document.getElementById("edit-address").value,
+        gender: document.getElementById("edit-gender").value,
+        email: document.getElementById("edit-email").value,
+        phone: document.getElementById("edit-phone").value,
+        validity: document.getElementById("edit-validity").value,
+      };
       try {
-        await axios.put(`${apiUrl}/${result.value.id}`, result.value);
+        await axios.put(`${apiUrl}/${updatedData.id}`, updatedData);
         fetchMembers();
         Swal.fire("Berhasil", "Data berhasil diperbarui.", "success");
       } catch {
@@ -311,6 +313,7 @@ function editMember(member) {
     }
   });
 }
+
 
   </script>
 
