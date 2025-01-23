@@ -8,9 +8,15 @@
   "host": "localhost:6666",
   "basePath": "/api",
   "schemes": ["http", "https"],
-  "x-hosts": [
-    "http://localhost:6666",
-    "https://perpustakaan.dibo.biz.id"
+  "servers": [
+    {
+      "url": "http://localhost:6666",
+      "description": "Local development server"
+    },
+    {
+      "url": "https://perpustakaan.dibo.biz.id",
+      "description": "Production server"
+    }
   ],
   "paths": {
     "/members": {
