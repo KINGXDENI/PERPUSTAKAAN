@@ -1,8 +1,8 @@
-const express = require("express");
-const mysql = require("mysql");
+const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const db = require("../database/db");
 const booksRoutes = require("./routes/books");
 const transactionsRoutes = require("./routes/transactions");
 const membersRoutes = require("./routes/members");
@@ -16,14 +16,6 @@ const PORT = 6666;
 app.use(cors()); // Untuk mengizinkan permintaan lintas asal (frontend-backend)
 app.use(bodyParser.json()); // Untuk parsing request body dalam format JSON
 
-// Konfigurasi koneksi ke database MySQL
-const db = mysql.createConnection({
-  host: "9vwr6.h.filess.io",       // Host MySQL (biasanya "localhost")
-  user: "dbperpustakaan_luckyhithe",            // Nama pengguna MySQL
-  password: "7040582d1bae7a18817736da75433ebefafcf877",            // Password MySQL
-  database: "dbperpustakaan_luckyhithe", // Nama database
-  port: 3307 // Port MySQL (default adalah 3306)
-});
 
 // Koneksi ke database
 db.connect((err) => {
