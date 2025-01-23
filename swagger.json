@@ -5,9 +5,6 @@
     "title": "Perpustakaan API",
     "description": "API untuk mengelola data members, books, dan transactions dalam sistem perpustakaan."
   },
-  "host": "localhost:6666",
-  "basePath": "/api",
-  "schemes": ["http", "https"],
   "servers": [
     {
       "url": "http://localhost:6666",
@@ -18,6 +15,7 @@
       "description": "Production server"
     }
   ],
+  "basePath": "/api",
   "paths": {
     "/members": {
       "get": {
@@ -108,7 +106,7 @@
               }
             }
           }
-        }
+        ]
       },
       "post": {
         "summary": "Tambahkan buku baru",
