@@ -6,8 +6,8 @@ const path = require("path");
 const booksRoutes = require("./routes/books");
 const transactionsRoutes = require("./routes/transactions");
 const membersRoutes = require("./routes/members");
+const swaggerJsDoc = require("./swagger");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
 
 const app = express();
 const PORT = 6666;
@@ -98,7 +98,7 @@ app.use(express.static(path.join(__dirname, 'Public')));
 app.use("/api/books", booksRoutes);
 app.use("/api/transactions", transactionsRoutes);
 app.use("/api/members", membersRoutes);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsDoc));
 
 console.log(`Dokumentasi Swagger tersedia di http://localhost:${PORT}/api-docs`);
 // Menyediakan endpoint atau mengatur routing
