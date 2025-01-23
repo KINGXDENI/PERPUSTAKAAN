@@ -3,6 +3,9 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const booksRoutes = require("./routes/books");
+const transactionsRoutes = require("./routes/transactions");
+const membersRoutes = require("./routes/members");
 
 const app = express();
 const PORT = 6666;
@@ -49,80 +52,56 @@ db.connect((err) => {
     }
   });
 });
+  
+  const createBooksTable = `
+    CREATE TABLE IF NOT EXISTS books (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(200) NOT NULL,
+      author VARCHAR(100) NOT NULL,
+      genre VARCHAR(50),
+      published_date DATE,
+      stock INT DEFAULT 0
+    )`;
+
+  db.query(createBooksTable, (err) => {
+    if (err) {
+      console.error("Error saat membuat tabel books:", err.message);
+    } else {
+      console.log("Tabel books siap digunakan atau sudah ada.");
+    }
+  });
+
+  // Buat tabel transactions jika belum ada
+  const createTransactionsTable = `
+    CREATE TABLE IF NOT EXISTS transactions (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      member_id INT NOT NULL,
+      book_id INT NOT NULL,
+      borrow_date DATE NOT NULL,
+      return_date DATE,
+      status ENUM('Dipinjam', 'Dikembalikan') DEFAULT 'Dipinjam',
+      FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE,
+      FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+    )`;
+
+  db.query(createTransactionsTable, (err) => {
+    if (err) {
+      console.error("Error saat membuat tabel transactions:", err.message);
+    } else {
+      console.log("Tabel transactions siap digunakan atau sudah ada.");
+    }
+  });
 
 app.use(express.static(path.join(__dirname, 'Public')));
+app.use("/api/books", booksRoutes);
+app.use("/api/transactions", transactionsRoutes);
+app.use("/api/members", membersRoutes);
 
 // Menyediakan endpoint atau mengatur routing
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'Public', 'perpustakaan.html'));
 });
-// Endpoint untuk mendapatkan semua member
-app.get("/api/members", (req, res) => {
-  const sql = "SELECT * FROM members";
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("Error saat mengambil data:", err.message);
-      res.status(500).json({ message: "Gagal mendapatkan data." });
-      return;
-    }
-    res.json(results);
-  });
-});
 
-// Endpoint untuk menambahkan member baru
-app.post("/api/members", (req, res) => {
-  const { id, name, birthdate, address, gender, email, phone, validity } = req.body;
-
-  const sql = `
-    INSERT INTO members (id, name, birthdate, address, gender, email, phone, validity) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-  const values = [id, name, birthdate, address, gender, email, phone, validity];
-
-  db.query(sql, values, (err) => {
-    if (err) {
-      console.error("Error saat menambahkan member:", err.message);
-      res.status(500).json({ message: "Gagal menambahkan data." });
-      return;
-    }
-    res.json({ message: "Member berhasil ditambahkan!" });
-  });
-});
-
-// Endpoint untuk memperbarui data member
-app.put("/api/members/:id", (req, res) => {
-  const { id } = req.params;
-  const { name, birthdate, address, gender, email, phone, validity } = req.body;
-
-  const sql = `
-    UPDATE members 
-    SET name = ?, birthdate = ?, address = ?, gender = ?, email = ?, phone = ?, validity = ? 
-    WHERE id = ?`;
-  const values = [name, birthdate, address, gender, email, phone, validity, id];
-
-  db.query(sql, values, (err) => {
-    if (err) {
-      console.error("Error saat memperbarui member:", err.message);
-      res.status(500).json({ message: "Gagal memperbarui data." });
-      return;
-    }
-    res.json({ message: "Data member berhasil diperbarui!" });
-  });
-});
-
-// Endpoint untuk menghapus data member
-app.delete("/api/members/:id", (req, res) => {
-  const { id } = req.params;
-
-  const sql = `DELETE FROM members WHERE id = ?`;
-  db.query(sql, [id], (err) => {
-    if (err) {
-      console.error("Error saat menghapus member:", err.message);
-      res.status(500).json({ message: "Gagal menghapus data." });
-      return;
-    }
-    res.json({ message: "Data member berhasil dihapus!" });
-  });
-});
 
 // Jalankan server
 app.listen(PORT, () => {
